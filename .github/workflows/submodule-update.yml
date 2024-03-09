@@ -23,10 +23,15 @@ jobs:
           repository: ${{ vars.PARENT_REPO }}
           token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
           submodules: recursive
-          
+
+      - name: Update Submodule
+        run: |
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
+
       - name: Commit
         run: |
-          git log
+          git status
           git config user.email ${{ vars.USER_EMAIL }}
           git config user.name "GitHub Actions"
           git add --all
